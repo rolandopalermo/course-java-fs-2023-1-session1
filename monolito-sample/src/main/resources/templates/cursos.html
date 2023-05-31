@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home page</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<p>
+    <span>Listado de cursos</span>
+</p>
+<li><a th:href="@{/cursos/nuevo}">Crear curso</a></li>
+<div th:if="${ not#lists.isEmpty(cursos)}">
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Instructor</th>
+        </tr>
+        <tr th:each="curso : ${cursos}">
+            <td th:text="${curso.id}"></td>
+            <td th:text="${curso.nombre}"></td>
+            <td th:text="${curso.instructor}"></td>
+            <td><a th:href="@{/cursos/eliminar/{id}(id=${curso.id})}">Eliminar</a></td>
+        </tr>
+        <table>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
