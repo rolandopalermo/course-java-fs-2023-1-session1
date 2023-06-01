@@ -25,14 +25,13 @@ public class CursosController {
     }
 
     @RequestMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable("id") long id, Model model) {
+    public String eliminar(@PathVariable("id") long id) {
         cursoService.eliminar(id);
         return "redirect:/cursos";
     }
 
     @RequestMapping("/nuevo")
-    public String showNewEmployeeForm(Model model) {
-        // create model attribute to bind form data
+    public String mostrarNuevo(Model model) {
         Curso curso = new Curso();
         model.addAttribute("curso", curso);
         return "crear-curso";
