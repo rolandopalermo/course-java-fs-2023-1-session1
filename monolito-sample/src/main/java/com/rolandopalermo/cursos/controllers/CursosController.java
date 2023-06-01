@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.UUID;
+
 @Controller
 @RequestMapping("/cursos")
 public class CursosController {
@@ -25,7 +27,7 @@ public class CursosController {
     }
 
     @RequestMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable("id") long id) {
+    public String eliminar(@PathVariable("id") UUID id) {
         cursoService.eliminar(id);
         return "redirect:/cursos";
     }
@@ -40,6 +42,19 @@ public class CursosController {
     @RequestMapping("/agregar")
     public String agregar(@ModelAttribute("curso") Curso curso) {
         cursoService.agregar(curso);
+        return "redirect:/cursos";
+    }
+
+    @RequestMapping("/editar/{id}")
+    public String mostrarEditar(@PathVariable(value = "id") UUID id, Model model) {
+        Curso curso = cursoService.buscarPorId(id);
+        model.addAttribute("curso", curso);
+        return "editar-curso";
+    }
+
+    @RequestMapping("/actualizar")
+    public String actualizar(@ModelAttribute("curso") Curso curso) {
+        cursoService.actualizar(curso);
         return "redirect:/cursos";
     }
 

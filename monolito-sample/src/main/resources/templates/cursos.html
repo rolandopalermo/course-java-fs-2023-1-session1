@@ -4,25 +4,76 @@
     <title>Home page</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            padding: 8px;
+            background-color: #dddddd;
+        }
+
+        #cursos {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #cursos td, #cursos th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #cursos tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #cursos tr:hover {
+            background-color: #ddd;
+        }
+
+        #cursos th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 <p>
     <span>Listado de cursos</span>
 </p>
-<li><a th:href="@{/cursos/nuevo}">Crear curso</a></li>
+<ul>
+    <li><a th:href="@{/cursos/nuevo}">Crear curso</a></li>
+</ul>
 <div th:if="${ not#lists.isEmpty(cursos)}">
-    <table>
+    <table id="cursos">
         <tr>
             <th>ID</th>
             <th>Nombre</th>
             <th>Instructor</th>
+            <th>Acciones</th>
         </tr>
         <tr th:each="curso : ${cursos}">
             <td th:text="${curso.id}"></td>
             <td th:text="${curso.nombre}"></td>
             <td th:text="${curso.instructor}"></td>
-            <td><a th:href="@{/cursos/eliminar/{id}(id=${curso.id})}">Eliminar</a></td>
+            <td>
+                <a th:href="@{/cursos/eliminar/{id}(id=${curso.id})}">Eliminar</a>
+                <a th:href="@{/cursos/editar/{id}(id=${curso.id})}">Editar</a>
+            </td>
         </tr>
         <table>
 </div>
