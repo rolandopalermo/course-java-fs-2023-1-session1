@@ -6,7 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-<form th:action="@{/cursos/agregar}" th:object="${curso}" method="POST">
+<form th:action="@{/cursos/actualizar}" th:object="${curso}" method="POST">
+    <div class="form-group">
+        <label>ID</label>
+        <input type="hidden" name="id" th:field="*{id}"
+               class="form-control"
+               placeholder="ID del curso"/>
+    </div>
     <div class="form-group">
         <label>Nombre</label>
         <input type="text" name="nombre" th:field="*{nombre}"
