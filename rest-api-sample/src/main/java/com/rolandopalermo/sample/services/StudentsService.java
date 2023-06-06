@@ -2,6 +2,7 @@ package com.rolandopalermo.sample.services;
 
 import com.rolandopalermo.sample.dtos.StudentCreationRequestDto;
 import com.rolandopalermo.sample.dtos.StudentCreationResponseDto;
+import com.rolandopalermo.sample.exceptions.AlreadyExistsException;
 import com.rolandopalermo.sample.repositories.StudentsRepository;
 import com.rolandopalermo.sample.repositories.entities.Student;
 import com.rolandopalermo.sample.utils.DateUtils;
@@ -27,7 +28,7 @@ public class StudentsService {
         Optional<Student> existingStudent = studentsRepository.findByIdentificationNumber(request.getIdNumber());
 
         if (existingStudent.isPresent()) {
-            throw new RuntimeException(format("A student with id number {0} already exists", request.getIdNumber()));
+            throw new AlreadyExistsException(format("A student with id number {0} already exists", request.getIdNumber()));
         }
 
         Student createdStudent = studentsRepository.save(toEntity(request));
