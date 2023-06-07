@@ -20,6 +20,9 @@ public class Student {
     @GeneratedValue
     private Long id;
 
+    @Column(name = "identification_number")
+    private String identificationNumber;
+
     @Column(name = "first_name")
     private String firstName;
 

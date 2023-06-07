@@ -8,5 +8,6 @@ public class StudentCreationRequestDto {
     private String firstName;
     private String lastName;
     private String birthday;
+    private String idNumber;
 
 }
