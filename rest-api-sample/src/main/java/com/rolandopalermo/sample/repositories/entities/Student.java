@@ -32,4 +32,7 @@ public class Student {
     @Column(name = "insertion_date")
     private LocalDateTime insertionDate;
 
+    @Column(name = "dni")
+    private String dni;
+
 }

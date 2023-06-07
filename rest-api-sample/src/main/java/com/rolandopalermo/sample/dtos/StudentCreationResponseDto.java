@@ -9,5 +9,6 @@ public class StudentCreationResponseDto {
     private String firstName;
     private String lastName;
     private String birthday;
+    private String dni;
 
 }

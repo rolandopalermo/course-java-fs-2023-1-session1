@@ -1,0 +1,9 @@
+###
+POST http://localhost:8080/api/v1.0/students
+Content-Type: application/json
+
+{
+  "birthday": "01/01/1988",
+  "firstName": "Rolando",
+  "lastName": "Rodriguez"
+}
