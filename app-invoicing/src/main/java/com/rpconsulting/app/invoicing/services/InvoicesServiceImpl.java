@@ -3,6 +3,7 @@ package com.rpconsulting.app.invoicing.services;
 import com.rpconsulting.app.invoicing.dtos.InvoiceCreationRequestDto;
 import com.rpconsulting.app.invoicing.dtos.InvoiceCreationResponseDto;
 import com.rpconsulting.app.invoicing.dtos.InvoiceDetailDto;
+import com.rpconsulting.app.invoicing.exceptions.AlreadyExistsException;
 import com.rpconsulting.app.invoicing.repositories.InvoiceDetailRepository;
 import com.rpconsulting.app.invoicing.repositories.InvoiceRepository;
 import com.rpconsulting.app.invoicing.repositories.entities.Invoice;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +29,10 @@ public class InvoicesServiceImpl implements InvoicesService {
     @Override
     @Transactional
     public InvoiceCreationResponseDto create(InvoiceCreationRequestDto request) {
+        Optional<Invoice> unInvoice = invoiceRepository.findBySecuence(request.getSequence());
+        if(unInvoice.isPresent()){
+            throw new AlreadyExistsException("FACTURA: "+unInvoice.get().getSequence()+"  YA ESTA REGISTRADA");
+        }
         Invoice invoice = invoiceRepository.save(toEntity(request));
 
         //YA TIENE UN ID GENERADO POR LA BD
