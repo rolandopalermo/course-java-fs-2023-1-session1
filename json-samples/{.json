@@ -1,0 +1,35 @@
+{
+    "issueDate": "08/06/2023",
+    "sequence": "000000001",
+    "issuer": {
+        "name": "RP",
+        "number": "00000000000001"
+    },
+    "receiver": {
+        "name": "SpringBoot",
+        "number": "xxxxxx",
+        "telephoneNumber": "734-345-3492",
+        "emails": [
+            "rolando.roc@gmail.com",
+            "support@rolandopalermo.com"
+        ]
+    },
+    "details": [
+        {
+            "code": "001",
+            "name": "Venta de libros",
+            "unitPrice": 100,
+            "qty": 3,
+            "taxAmount": 36,
+            "discount": 10
+        },
+        {
+            "code": "002",
+            "name": "Venta de libros Java",
+            "unitPrice": 200,
+            "qty": 1,
+            "taxAmount": 24,
+            "discount": 20
+        }
+    ]
+}
