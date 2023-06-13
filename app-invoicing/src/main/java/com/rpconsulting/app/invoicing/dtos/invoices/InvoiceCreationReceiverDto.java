@@ -1,11 +1,11 @@
-package com.rpconsulting.app.invoicing.dtos;
+package com.rpconsulting.app.invoicing.dtos.invoices;
 
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class InvoiceReceiverDto {
+public class InvoiceCreationReceiverDto {
 
     private String name;
     private String number;//RUC,NIT,RFC

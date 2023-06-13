@@ -1,11 +1,13 @@
-package com.rpconsulting.app.invoicing.dtos;
+package com.rpconsulting.app.invoicing.dtos.invoices;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
-public class InvoiceDetailDto {
+@Builder
+public class InvoiceDetailResponseDto {
 
     private String code;
     private String name;
@@ -13,5 +15,6 @@ public class InvoiceDetailDto {
     private BigDecimal qty;
     private BigDecimal taxAmount;
     private BigDecimal discount;
+    private BigDecimal subTotal;
 
 }

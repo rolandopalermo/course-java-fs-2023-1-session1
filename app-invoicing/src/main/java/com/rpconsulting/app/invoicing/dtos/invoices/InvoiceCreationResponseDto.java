@@ -1,4 +1,4 @@
-package com.rpconsulting.app.invoicing.dtos;
+package com.rpconsulting.app.invoicing.dtos.invoices;
 
 import lombok.Data;
 
