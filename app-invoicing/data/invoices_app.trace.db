@@ -1,0 +1,12 @@
+2023-06-13 19:00:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SUPPLIER" not found; SQL statement:
+SELECT * FROM supplier where number = ? LIMIT 1 [42102-214]
+2023-06-13 19:09:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "NUMBER CHARACTER VARYING(255)": "'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lore... (4018)"; SQL statement:
+insert into suppliers (name, number, id) values (?, ?, ?) [22001-214]
+2023-06-13 19:09:19 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "NUMBER CHARACTER VARYING(255)": "'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lore... (1148)"; SQL statement:
+insert into suppliers (name, number, id) values (?, ?, ?) [22001-214]
+2023-06-13 19:09:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "NUMBER CHARACTER VARYING(255)": "'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lore... (574)"; SQL statement:
+insert into suppliers (name, number, id) values (?, ?, ?) [22001-214]

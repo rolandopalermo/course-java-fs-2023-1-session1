@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "api/v1.0/suppliers")
 @RequiredArgsConstructor
@@ -20,7 +22,7 @@ public class SuppliersController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public SupplierCreationResponseDto create(@RequestBody SupplierCreationRequestDto request) {
+    public SupplierCreationResponseDto create(@Valid @RequestBody SupplierCreationRequestDto request) {
         return supplierService.create(request);
     }
 
