@@ -13,6 +13,7 @@ import com.rpconsulting.app.invoicing.repositories.SupplierRepository;
 import com.rpconsulting.app.invoicing.repositories.entities.Invoice;
 import com.rpconsulting.app.invoicing.repositories.entities.InvoiceDetail;
 import com.rpconsulting.app.invoicing.repositories.entities.Supplier;
+import com.rpconsulting.app.invoicing.repositories.projections.InvoiceDetailProjection;
 import com.rpconsulting.app.invoicing.utils.DateUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -63,6 +64,11 @@ public class InvoicesServiceImpl implements InvoicesService {
                 .orElseThrow(() -> new NotFoundException(format("La factura con ID {0} no exixte", id)));
 
         return toResponse(invoice, invoice.getDetails());
+    }
+
+    @Override
+    public List<InvoiceDetailProjection> findAllDetails() {
+        return invoiceDetailRepository.findAllDetails();
     }
 
     private void validateIfExists(String issuer, String sequence) {
