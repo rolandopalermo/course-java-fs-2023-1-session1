@@ -4,6 +4,7 @@ import com.rpconsulting.app.invoicing.dtos.invoices.InvoiceCreationDetailDto;
 import com.rpconsulting.app.invoicing.dtos.invoices.InvoiceCreationRequestDto;
 import com.rpconsulting.app.invoicing.dtos.invoices.InvoiceCreationResponseDto;
 import com.rpconsulting.app.invoicing.dtos.invoices.InvoiceDetailResponseDto;
+import com.rpconsulting.app.invoicing.dtos.invoices.InvoiceDetailSummaryDto;
 import com.rpconsulting.app.invoicing.dtos.invoices.InvoiceResponseDto;
 import com.rpconsulting.app.invoicing.errors.exceptions.AlreadyExistsException;
 import com.rpconsulting.app.invoicing.errors.exceptions.NotFoundException;
@@ -16,6 +17,9 @@ import com.rpconsulting.app.invoicing.repositories.entities.Supplier;
 import com.rpconsulting.app.invoicing.repositories.projections.InvoiceDetailProjection;
 import com.rpconsulting.app.invoicing.utils.DateUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,8 +71,25 @@ public class InvoicesServiceImpl implements InvoicesService {
     }
 
     @Override
-    public List<InvoiceDetailProjection> findAllDetails() {
-        return invoiceDetailRepository.findAllDetails();
+    public Page<InvoiceDetailSummaryDto> findAllDetails(String supplierNumber, String supplierName, Pageable pageable) {
+        Page<InvoiceDetailProjection> page = invoiceDetailRepository.findAllDetails(supplierNumber, supplierName, pageable);
+        return new PageImpl<>(
+                page.stream().map(this::toDto).collect(Collectors.toList()),
+                page.getPageable(),
+                page.getTotalElements()
+        );
+    }
+
+    private InvoiceDetailSummaryDto toDto(InvoiceDetailProjection projection) {
+        InvoiceDetailSummaryDto dto = new InvoiceDetailSummaryDto();
+        dto.setId(projection.getId());
+        dto.setCode(projection.getCode());
+        dto.setInvoiceId(projection.getInvoiceId());
+        dto.setSupplierNumber(projection.getSupplierNumber());
+        dto.setSupplierName(projection.getSupplierName());
+        dto.setUnitPrice(projection.getUnitPrice());
+        dto.setName(projection.getName());
+        return dto;
     }
 
     private void validateIfExists(String issuer, String sequence) {
