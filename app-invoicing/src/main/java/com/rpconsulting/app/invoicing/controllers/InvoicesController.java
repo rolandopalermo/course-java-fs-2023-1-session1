@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @Slf4j
 @RestController
 @RequestMapping(value = "api/v1.0/invoices")
@@ -44,9 +42,9 @@ public class InvoicesController {
     @GetMapping("details")
     @ResponseStatus(code = HttpStatus.OK)
     public Page<InvoiceDetailSummaryDto> findAllDetails(
-            Pageable pageable,
             @RequestParam(value = "supplier-number", required = false) String supplierNumber,
-            @RequestParam(value = "supplier-name", required = false) String supplierName
+            @RequestParam(value = "supplier-name", required = false) String supplierName,
+            Pageable pageable
     ) {
         log.info("Page = {}, Size = {}", pageable.getPageNumber(), pageable.getPageSize());
         return invoicesService.findAllDetails(supplierNumber, supplierName, pageable);
