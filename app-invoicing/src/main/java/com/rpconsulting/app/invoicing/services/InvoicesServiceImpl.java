@@ -6,6 +6,7 @@ import com.rpconsulting.app.invoicing.dtos.invoices.InvoiceCreationResponseDto;
 import com.rpconsulting.app.invoicing.dtos.invoices.InvoiceDetailResponseDto;
 import com.rpconsulting.app.invoicing.dtos.invoices.InvoiceDetailSummaryDto;
 import com.rpconsulting.app.invoicing.dtos.invoices.InvoiceResponseDto;
+import com.rpconsulting.app.invoicing.dtos.invoices.InvoicesListFilterDto;
 import com.rpconsulting.app.invoicing.errors.exceptions.AlreadyExistsException;
 import com.rpconsulting.app.invoicing.errors.exceptions.NotFoundException;
 import com.rpconsulting.app.invoicing.repositories.InvoiceDetailRepository;
@@ -71,8 +72,8 @@ public class InvoicesServiceImpl implements InvoicesService {
     }
 
     @Override
-    public Page<InvoiceDetailSummaryDto> findAllDetails(String supplierNumber, String supplierName, Pageable pageable) {
-        Page<InvoiceDetailProjection> page = invoiceDetailRepository.findAllDetails(supplierNumber, supplierName, pageable);
+    public Page<InvoiceDetailSummaryDto> findAllDetails(InvoicesListFilterDto filters, Pageable pageable) {
+        Page<InvoiceDetailProjection> page = invoiceDetailRepository.findAllDetails(filters.getSupplierNumber(), filters.getSupplierName(), pageable);
         return new PageImpl<>(
                 page.stream().map(this::toDto).collect(Collectors.toList()),
                 page.getPageable(),

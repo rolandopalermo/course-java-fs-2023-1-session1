@@ -1,14 +1,17 @@
 package com.rpconsulting.app.invoicing.controllers;
 
+import com.rpconsulting.app.invoicing.annotations.InvoicesListFilter;
 import com.rpconsulting.app.invoicing.dtos.invoices.InvoiceCreationRequestDto;
 import com.rpconsulting.app.invoicing.dtos.invoices.InvoiceCreationResponseDto;
 import com.rpconsulting.app.invoicing.dtos.invoices.InvoiceDetailSummaryDto;
 import com.rpconsulting.app.invoicing.dtos.invoices.InvoiceResponseDto;
+import com.rpconsulting.app.invoicing.dtos.invoices.InvoicesListFilterDto;
 import com.rpconsulting.app.invoicing.services.InvoicesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,15 +42,14 @@ public class InvoicesController {
         return invoicesService.findById(invoiceId);
     }
 
+    @InvoicesListFilter
     @GetMapping("details")
     @ResponseStatus(code = HttpStatus.OK)
     public Page<InvoiceDetailSummaryDto> findAllDetails(
-            @RequestParam(value = "supplier-number", required = false) String supplierNumber,
-            @RequestParam(value = "supplier-name", required = false) String supplierName,
-            Pageable pageable
-    ) {
-        log.info("Page = {}, Size = {}", pageable.getPageNumber(), pageable.getPageSize());
-        return invoicesService.findAllDetails(supplierNumber, supplierName, pageable);
+            InvoicesListFilterDto filters,
+            Pageable pageable) {
+        log.info("Filters = {}", filters);
+        return invoicesService.findAllDetails(filters, pageable);
     }
 
 }
